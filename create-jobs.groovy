@@ -4,7 +4,7 @@ def slurper=new JsonSlurper()
 def projects=slurper.parseText('{"jobs":["struts","stuts2", "strutsPoop"]}')
 
 projects.jobs.each { jobName ->
-    job('struts-job: ${jobName}') {
+    job('${jobName}') {
 	    scm {
 	        git('git://github.com/ngbalk/test-sonatype.git')
 	    }
