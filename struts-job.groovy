@@ -25,4 +25,5 @@ job('struts-job') {
     }
     configure{ project ->
       (project / 'postbuilders').setValue(scanner)
+    }
 }
