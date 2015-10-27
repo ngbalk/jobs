@@ -4,7 +4,7 @@ def slurper=new JsonSlurper()
 def projects=slurper.parseText('{"jobs":["struts","stuts2", "strutsPoop"]}')
 
 projects.jobs.each { jobName ->
-    job('${jobName}') {
+    job("${jobName}") {
 	    scm {
 	        git('git://github.com/ngbalk/test-sonatype.git')
 	    }
@@ -16,7 +16,7 @@ projects.jobs.each { jobName ->
 	          goals('clean install')
 	          mavenInstallation('Maven 3.3.3')
 	        }
-	        shell('curl -u admin:admin123 -X POST -H "Content-Type: application/json" -d \'{"publicId":"${jobName}","name": "${jobName}","organizationId":"c33c55b5822d42ec92cdc75904438132"}\' \'localhost:8070/api/v2/applications\'')
+	        shell("curl -u admin:admin123 -X POST -H 'Content-Type: application/json' -d '{\'publicId\':\'${jobName}\',\'name\': \'${jobName}\',\'organizationId\':\'c33c55b5822d42ec92cdc75904438132\'}' 'localhost:8070/api/v2/applications'")
 	    }
 	    
 	    configure { project ->
