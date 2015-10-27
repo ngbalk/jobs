@@ -1,18 +1,3 @@
-def scanner={
-  com.sonatype.insight.ci.hudson.PreBuildScan {
-        applicationSelectType {
-          value 'list'
-          applicationId 'testScan'
-        }
-        pathConfig ''
-        failOnSecurityAlerts false
-        failOnClmServerFailures false
-        stageId 'build'
-        username 'admin'
-        password 'xoj2fUS2ClJB8TJePUwv/fcxMK881rz2S8jXmXEpDqk='
-      }
-}
-
 job('struts-job') {
     scm {
         git('git://github.com/ngbalk/test-sonatype.git')
@@ -21,9 +6,24 @@ job('struts-job') {
         scm('*/15 * * * *')
     }
     steps {
-        maven('clean package')
+        maven{
+          goals('clean install')
+          mavenInstallation('Maven 3.3.3')
+        }
     }
-    configure{ project ->
-      (project / 'postbuilders').setValue(scanner)
+    
+    configure { project ->
+        project / publishers << 'com.sonatype.insight.ci.hudson.PostBuildScan'(plugin: 'sonatype-clm-ci@2.14.2-01') {
+          applicationSelectType {
+            value('list')
+            applicationId('testScan')
+          }
+          pathConfig()
+          failOnSecurityAlerts false
+          failOnClmServerFailures false
+          stageId('build')
+          username('admin')
+          password('xoj2fUS2ClJB8TJePUwv/fcxMK881rz2S8jXmXEpDqk=')
+        }
     }
 }
