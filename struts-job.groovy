@@ -10,6 +10,8 @@ job('struts-job') {
           goals('clean install')
           mavenInstallation('Maven 3.3.3')
         }
+        shell('curl -u admin:admin123 -X POST -H "Content-Type: application/json" -d '{"publicId": "struts-scan","name": "MyStrutsScan","organizationId":"c33c55b5822d42ec92cdc75904438132"}' 'localhost:8070/api/v2/applications'
+')
     }
     
     configure { project ->
