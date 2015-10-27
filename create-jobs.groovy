@@ -34,4 +34,5 @@ projects.jobs.each { jobName ->
 	        }
 	    }
 	}
+	queue("${jobName}")
 }
