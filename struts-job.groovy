@@ -1,5 +1,5 @@
 def scanner={
-  com.sonatype.insight.ci.hudson.PreBuildScan plugin="sonatype-clm-ci@2.14.2-01" {
+  com.sonatype.insight.ci.hudson.PreBuildScan {
         applicationSelectType {
           value 'list'
           applicationId 'testScan'
