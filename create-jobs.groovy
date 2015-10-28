@@ -23,7 +23,7 @@ projects.jobs.each { jobName ->
 	        project / publishers << 'com.sonatype.insight.ci.hudson.PostBuildScan'(plugin: 'sonatype-clm-ci@2.14.2-01') {
 	          applicationSelectType {
 	            value('list')
-	            applicationId('testScan')
+	            applicationId("${jobName}")
 	          }
 	          pathConfig()
 	          failOnSecurityAlerts false
