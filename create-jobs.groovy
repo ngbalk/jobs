@@ -29,8 +29,6 @@ projects.jobs.each { jobName ->
 	          failOnSecurityAlerts false
 	          failOnClmServerFailures false
 	          stageId('build')
-	          username('admin')
-	          password('xoj2fUS2ClJB8TJePUwv/fcxMK881rz2S8jXmXEpDqk=')
 	        }
 	    }
 	}
