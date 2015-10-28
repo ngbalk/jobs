@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
 def slurper=new JsonSlurper()
-def projects=slurper.parseText('{"jobs":["struts","stuts2", "strutsPoop"]}')
+def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
 
 projects.jobs.each { jobName ->
     job("${jobName}") {
