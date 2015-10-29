@@ -1,1 +1,25 @@
-{"jobs":{"struts":{"dependencies":["1","2"]},"struts2":{"dependencies":["3","4"]}}}
+{"jobs":
+  {
+    "struts": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "test-sonatype",
+      "version": "0.0.1-SNAPSHOT",
+      "name": "test-sonatype Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "junit",
+            "artifactId": "junit",
+            "version": "3.8.1",
+          },
+          {
+            "groupId": "org.apache.struts",
+            "artifactId": "struts2-core",
+            "version": "2.3.24.1"
+          }
+      ]
+        
+      }
+    }
+  }
+}
