@@ -23,6 +23,6 @@ projects.jobs.each {component, val ->
             }
         }
     }
-//userContent("${component}-pom.xml",streamFileFromWorkspace("${component}-pom.xml"))
+userContent("${component}-pom.xml",streamFileFromWorkspace("${component}-pom.xml"))
 }
 
