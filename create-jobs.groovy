@@ -4,6 +4,7 @@ def slurper=new JsonSlurper()
 def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
 
 projects.jobs.each {component, val ->
+	print "doing something"
     def writer = new FileWriter(new File("${component}-pom.xml"))
     def xml = new MarkupBuilder(writer)
     xml.project{
