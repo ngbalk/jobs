@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
 def slurper=new JsonSlurper()
 def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
-
+def file = new File("thing.xml")
 projects.jobs.each {component, val ->
 	print "doing something"
     def writer = new FileWriter(new File("${component}-pom.xml"))
@@ -40,7 +40,7 @@ projects.jobs.each {component, val ->
 	        }
 	        shell("curl -u admin:admin123 -X POST -H 'Content-Type: application/json' -d '{\"publicId\":\"${component}\",\"name\": \"${component}\",\"organizationId\":\"e85ccd6ec0664bb4b5a5b490fe0829f6\"}' 'localhost:8070/api/v2/applications'")
 	    }
-	    userContent("${component}-pom.xml",streamFileFromWorkspace("pom-template"))
+	    userContent("${component}-pom.xml",streamFileFromWorkspace("${component}-pom.xml"))
 	    
 	    configure { project ->
 	        project / publishers << 'com.sonatype.insight.ci.hudson.PostBuildScan'(plugin: 'sonatype-clm-ci@2.14.2-01') {
