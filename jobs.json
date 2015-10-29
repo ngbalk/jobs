@@ -1,1 +1,16 @@
-{"jobs":["struts","stuts2", "strutsPoop"]}
+{
+  "jobs": {
+    "struts": {
+      "dependencies": {
+        "1": {},
+        "2": {}
+      }
+    },
+    "struts2": {
+      "dependencies": {
+        "3": {},
+        "4": {}
+      }
+    }
+  }
+}
