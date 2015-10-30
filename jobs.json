@@ -38,6 +38,47 @@
             "version": "8.0.28"
           }
       ]
+
+      },
+      "spring": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "spring",
+      "version": "0.0.1-SNAPSHOT",
+      "name": "spring Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "junit",
+            "artifactId": "junit",
+            "version": "3.8.1",
+          },
+          {
+            "groupId": "org.springframework",
+            "artifactId": "spring-context",
+            "version": "4.2.2.RELEASE"
+          }
+      ]
+        
+      },
+
+      "hibernate": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "hibernate",
+      "version": "0.0.1-SNAPSHOT",
+      "name": "hibarnate Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "junit",
+            "artifactId": "junit",
+            "version": "3.8.1",
+          },
+          {
+            "groupId": "org.hibernate",
+            "artifactId": "hibernate-core",
+            "version": "5.0.2.Final"
+          }
+      ]
         
       }
     }
