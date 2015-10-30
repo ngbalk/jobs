@@ -3,9 +3,9 @@
     "struts": {
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
-      "artifactId": "test-sonatype",
+      "artifactId": "struts",
       "version": "0.0.1-SNAPSHOT",
-      "name": "test-sonatype Maven Webapp",
+      "name": "struts Maven Webapp",
       "dependencies": [
           {
             "groupId": "junit",
@@ -16,6 +16,26 @@
             "groupId": "org.apache.struts",
             "artifactId": "struts2-core",
             "version": "2.3.24.1"
+          }
+      ]
+        
+      },
+    "tomcat": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "tomcat",
+      "version": "0.0.1-SNAPSHOT",
+      "name": "tomcat Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "junit",
+            "artifactId": "junit",
+            "version": "3.8.1",
+          },
+          {
+            "groupId": "org.apache.tomcat.embed",
+            "artifactId": "tomcat-embed-core",
+            "version": "8.0.28"
           }
       ]
         
