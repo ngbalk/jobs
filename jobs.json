@@ -66,7 +66,7 @@
       "groupId": "JPMC",
       "artifactId": "hibernate",
       "version": "0.0.1-SNAPSHOT",
-      "name": "hibarnate Maven Webapp",
+      "name": "hibernate Maven Webapp",
       "dependencies": [
           {
             "groupId": "junit",
