@@ -4,7 +4,7 @@
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
       "artifactId": "struts",
-      "version": "0.0.1-SNAPSHOT",
+      "version": "0.0.1",
       "name": "struts Maven Webapp",
       "dependencies": [
           {
@@ -24,7 +24,7 @@
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
       "artifactId": "tomcat",
-      "version": "0.0.1-SNAPSHOT",
+      "version": "0.0.1",
       "name": "tomcat Maven Webapp",
       "dependencies": [
           {
@@ -44,7 +44,7 @@
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
       "artifactId": "spring",
-      "version": "0.0.1-SNAPSHOT",
+      "version": "0.0.1",
       "name": "spring Maven Webapp",
       "dependencies": [
           {
@@ -65,7 +65,7 @@
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
       "artifactId": "hibernate",
-      "version": "0.0.1-SNAPSHOT",
+      "version": "0.0.1",
       "name": "hibernate Maven Webapp",
       "dependencies": [
           {

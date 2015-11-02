@@ -12,6 +12,7 @@ projects.jobs.each {component, val ->
 	        scm('*/15 * * * *')
 	    }
 	    steps {
+	    	shell("mvn archetype:generate -DgroupId=${val.groupId} -DartifactId=${val.artifactId} -Dversion=${val.version}  -DinteractiveMode=false")
 	    	shell("wget -O pom.xml localhost:8080/jenkins/userContent/${component}-pom.xml")
 	        maven{
 	          goals('clean install')
