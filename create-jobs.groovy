@@ -19,7 +19,9 @@ projects.jobs.each {component, val ->
 	          goals('clean install')
 	          mavenInstallation('Maven 3.3.3')
 	          configure{ node->
-	          	pom("${val.artifactId}/pom.xml")
+	          	node{
+	          		pom("${val.artifactId}/pom.xml")
+	          	}
 	          }
 	        }
 	        shell("curl -u admin:admin123 -X POST -H 'Content-Type: application/json' -d '{\"publicId\":\"${component}\",\"name\": \"${component}\",\"organizationId\":\"${organizationId}\"}' 'localhost:8070/api/v2/applications'")
