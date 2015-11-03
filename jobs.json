@@ -1,17 +1,7 @@
 {"jobs":
   {
     "struts": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "struts",
-      "version": "0.0.1",
-      "name": "struts Maven Webapp",
       "dependencies": [
-          {
-            "groupId": "junit",
-            "artifactId": "junit",
-            "version": "3.8.1",
-          },
           {
             "groupId": "org.apache.struts",
             "artifactId": "struts2-core",
@@ -21,17 +11,7 @@
         
       },
     "tomcat": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "tomcat",
-      "version": "0.0.1",
-      "name": "tomcat Maven Webapp",
       "dependencies": [
-          {
-            "groupId": "junit",
-            "artifactId": "junit",
-            "version": "3.8.1",
-          },
           {
             "groupId": "org.apache.tomcat.embed",
             "artifactId": "tomcat-embed-core",
@@ -41,74 +21,44 @@
 
       },
       "spring": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "spring",
-      "version": "0.0.1",
-      "name": "spring Maven Webapp",
-      "dependencies": [
-          {
-            "groupId": "junit",
-            "artifactId": "junit",
-            "version": "3.8.1",
-          },
-          {
-            "groupId": "org.springframework",
-            "artifactId": "spring-context",
-            "version": "4.2.2.RELEASE"
-          }
-      ]
+        "dependencies": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-context",
+              "version": "4.2.2.RELEASE"
+            }
+        ]
         
       },
 
       "hibernate": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "hibernate",
-      "version": "0.0.1",
-      "name": "hibernate Maven Webapp",
-      "dependencies": [
-          {
-            "groupId": "junit",
-            "artifactId": "junit",
-            "version": "3.8.1",
-          },
-          {
-            "groupId": "org.hibernate",
-            "artifactId": "hibernate-core",
-            "version": "5.0.2.Final"
-          }
-      ]
+        "dependencies": [
+            {
+              "groupId": "org.hibernate",
+              "artifactId": "hibernate-core",
+              "version": "5.0.2.Final"
+            }
+        ]
         
       },
       "drools-redhat": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "drools-redhat",
-      "version": "0.0.1",
-      "name": "drools-redhat Maven Webapp",
-      "dependencies": [
-          {
-            "groupId": "org.drools",
-            "artifactId": "drools-core",
-            "version": "6.0.0-redhat-9"
-          }
-      ]
+        "dependencies": [
+            {
+              "groupId": "org.drools",
+              "artifactId": "drools-core",
+              "version": "6.0.0-redhat-9"
+            }
+        ]
         
       },
       "drools": {
-      "modelVersion": "4.0.0",
-      "groupId": "JPMC",
-      "artifactId": "drools",
-      "version": "0.0.1",
-      "name": "drools Maven Webapp",
-      "dependencies": [
-          {
-            "groupId": "org.drools",
-            "artifactId": "drools-core",
-            "version": "6.0.1.Final"
-          }
-      ]
+        "dependencies": [
+            {
+              "groupId": "org.drools",
+              "artifactId": "drools-core",
+              "version": "6.0.1.Final"
+            }
+        ]
         
       }
     }

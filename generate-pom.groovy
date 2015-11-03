@@ -8,12 +8,11 @@ projects.jobs.each {component, val ->
     def writer = new FileWriter(new File("${component}-pom.xml"))
     def xml = new MarkupBuilder(writer)
     xml.project{
-        modelVersion(val.modelVersion)
-        groupId(val.groupId)
-        artifactId(val.artifactId)
+        groupId("redhat")
+        artifactId(component)
         packaging("war")
-        version(val.version)
-        name(val.name)
+        version("1.0-SNAPSHOT")
+        name(component)
         dependencies{
             val.dependencies.each {dep-> 
                 dependency{
