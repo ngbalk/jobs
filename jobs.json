@@ -80,6 +80,21 @@
           }
       ]
         
+      },
+      "drools": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "drools",
+      "version": "0.0.1",
+      "name": "drools Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "org.drools",
+            "artifactId": "drools-core",
+            "version": "6.0.1.Final"
+          }
+      ]
+        
       }
     }
   }
