@@ -11,6 +11,7 @@ projects.jobs.each {component, val ->
         modelVersion(val.modelVersion)
         groupId(val.groupId)
         artifactId(val.artifactId)
+        packaging("war")
         version(val.version)
         name(val.name)
         dependencies{

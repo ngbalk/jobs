@@ -12,15 +12,15 @@ projects.jobs.each {component, val ->
 	        scm('*/15 * * * *')
 	    }
 	    steps {
-	    	shell("rm -rf ${val.artifactId}")
-	    	shell("mvn archetype:generate -DgroupId=${val.groupId} -DartifactId=${val.artifactId} -Dversion=${val.version}  -DinteractiveMode=false")
+	    	//shell("rm -rf ${val.artifactId}")
+	    	//shell("mvn archetype:generate -DgroupId=${val.groupId} -DartifactId=${val.artifactId} -Dversion=${val.version}  -DinteractiveMode=false")
 	    	shell("wget -O ${val.artifactId}/pom.xml localhost:8080/jenkins/userContent/${component}-pom.xml")
 	        maven{
 	          goals('clean install')
 	          mavenInstallation('Maven 3.3.3')
-	          configure{
-	          	(it / 'pom').setValue("${val.artifactId}/pom.xml")
-	          }
+	          //configure{
+	          //	(it / 'pom').setValue("${val.artifactId}/pom.xml")
+	          //}
 	        }
 	        shell("curl -u admin:admin123 -X POST -H 'Content-Type: application/json' -d '{\"publicId\":\"${component}\",\"name\": \"${component}\",\"organizationId\":\"${organizationId}\"}' 'localhost:8070/api/v2/applications'")
 	    }
