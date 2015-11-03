@@ -81,6 +81,21 @@
       ]
         
       },
+      "drools-redhat": {
+      "modelVersion": "4.0.0",
+      "groupId": "JPMC",
+      "artifactId": "drools-redhat",
+      "version": "0.0.1",
+      "name": "drools-redhat Maven Webapp",
+      "dependencies": [
+          {
+            "groupId": "org.drools",
+            "artifactId": "drools-core",
+            "version": "6.0.0-redhat-9"
+          }
+      ]
+        
+      },
       "drools": {
       "modelVersion": "4.0.0",
       "groupId": "JPMC",
