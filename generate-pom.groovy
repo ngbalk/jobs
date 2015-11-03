@@ -23,6 +23,18 @@ projects.jobs.each {component, val ->
                 }
             }
         }
+        build{
+            plugins{
+                plugin{
+                    groupId("org.apache.maven.plugins")
+                    artifactId("maven-war-plugin")
+                    version("2.6")
+                    configuration{
+                        failOnMissingWebXml("false")
+                    }
+                }
+            }
+        }
     }
 }
 
