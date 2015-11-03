@@ -12,9 +12,9 @@ projects.jobs.each {component, val ->
 	        scm('*/15 * * * *')
 	    }
 	    steps {
-	    	//shell("rm -rf ${val.artifactId}")
+	    	//shell("rm -rf ${val.artifactId}")    ${val.artifactId}/
 	    	//shell("mvn archetype:generate -DgroupId=${val.groupId} -DartifactId=${val.artifactId} -Dversion=${val.version}  -DinteractiveMode=false")
-	    	shell("wget -O ${val.artifactId}/pom.xml localhost:8080/jenkins/userContent/${component}-pom.xml")
+	    	shell("wget -O pom.xml localhost:8080/jenkins/userContent/${component}-pom.xml")
 	        maven{
 	          goals('clean install')
 	          mavenInstallation('Maven 3.3.3')
