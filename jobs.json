@@ -1,6 +1,6 @@
 {"jobs":
   {
-    "struts": {
+    "struts-2.3.24.1": {
       "dependencies": [
           {
             "groupId": "org.apache.struts",
