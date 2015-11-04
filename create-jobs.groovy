@@ -3,7 +3,7 @@ import groovy.json.JsonSlurper
 def slurper=new JsonSlurper()
 def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
 
-def organizationId="9e8ee77412304ec596d3588d9cb4f20b"
+def organizationId="28dba0d94c7e452d9dd1a32e2a51f5f6"
 def nexusUsername="admin"
 def nexusPassword="admin123"
 
