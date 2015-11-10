@@ -16,8 +16,8 @@ projects.jobs.each {component, val ->
 	          mavenInstallation('Maven 3.3.3')
 	        }
 	        shell("curl -u ${nexusUsername}:${nexusPassword} -X POST -H 'Content-Type: application/json' -d '{\"publicId\":\"${component}\",\"name\": \"${component}\",\"organizationId\":\"${organizationId}\"}' 'localhost:8070/api/v2/applications'")
-	        shell("wget http://10.3.12.8:8080/download/scan.cli.zip")
-	        shell("unzip scan.cli.zip")
+	        shell("wget -O scan.cli.zip http://10.3.12.8:8080/download/scan.cli.zip")
+	        shell("unzip -o scan.cli.zip")
 	        shell("bash scan.cli-*/bin/scan.cli.sh --username sysadmin --password blackduck --host 10.3.12.8 --port 8080 target")
 	    }
 	    userContent("${component}-pom.xml",streamFileFromWorkspace("${component}-pom.xml"))
