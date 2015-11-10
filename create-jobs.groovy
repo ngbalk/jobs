@@ -17,6 +17,7 @@ projects.jobs.each {component, val ->
 	        }
 	        shell("curl -u ${nexusUsername}:${nexusPassword} -X POST -H 'Content-Type: application/json' -d '{\"publicId\":\"${component}\",\"name\": \"${component}\",\"organizationId\":\"${organizationId}\"}' 'localhost:8070/api/v2/applications'")
 	        
+	        shell("curl -X POST --data 'j_username=sysadmin&j_password=blackduck' -i http://10.3.12.8:8080/j_spring_security_check")
 	        shell("curl -X POST --header 'Content-Type: application/vnd.blackducksoftware.project-1+json' --header 'Accept: application/json' -d '{description': '','name': '${component}','projectTier': 1,'source': 'CUSTOM'}' 'http://10.3.12.8:8080/api/projects'")
 
 	        shell("wget -O scan.cli.zip http://10.3.12.8:8080/download/scan.cli.zip")
