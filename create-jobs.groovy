@@ -6,6 +6,8 @@ def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
 def organizationId="28dba0d94c7e452d9dd1a32e2a51f5f6"
 def nexusUsername="admin"
 def nexusPassword="admin123"
+def blackduckUsername="sysadmin"
+def blackduckPassword="blackduck"
 
 projects.jobs.each {component, val ->
     job("${component}") {
@@ -22,7 +24,7 @@ projects.jobs.each {component, val ->
 
 	        shell("wget -O scan.cli.zip http://10.3.12.8:8080/download/scan.cli.zip")
 	        shell("unzip -o scan.cli.zip")
-	        shell("bash scan.cli-*/bin/scan.cli.sh --username sysadmin --password blackduck --host 10.3.12.8 --port 8080 target")
+	        shell("bash scan.cli-*/bin/scan.cli.sh --username ${blackduckUsername} --password ${blackduckPassword} --host 10.3.12.8 --port 8080 target")
 	    }
 	    userContent("${component}-pom.xml",streamFileFromWorkspace("${component}-pom.xml"))
 	    
