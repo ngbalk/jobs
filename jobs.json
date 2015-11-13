@@ -1,16 +1,15 @@
 {"jobs":
   {
-    "struts-2.3.24.1": {
+    "struts-1.1.b1": {
       "dependencies": [
           {
             "groupId": "org.apache.struts",
-            "artifactId": "struts2-core",
-            "version": "2.3.24.1"
+            "artifactId": "struts1-core",
+            "version": "1.1.b1"
           }
       ]
-        
       },
-    "tomcat": {
+    "tomcat-8.0.28": {
       "dependencies": [
           {
             "groupId": "org.apache.tomcat.embed",
@@ -20,7 +19,7 @@
       ]
 
       },
-      "spring": {
+      "spring-4.2.2": {
         "dependencies": [
             {
               "groupId": "org.springframework",
@@ -31,35 +30,14 @@
         
       },
 
-      "hibernate": {
+      "hibernate-5.0.2": {
         "dependencies": [
             {
               "groupId": "org.hibernate",
               "artifactId": "hibernate-core",
               "version": "5.0.2.Final"
             }
-        ]
-        
-      },
-      "drools-redhat": {
-        "dependencies": [
-            {
-              "groupId": "org.drools",
-              "artifactId": "drools-core",
-              "version": "6.0.0-redhat-9"
-            }
-        ]
-        
-      },
-      "drools": {
-        "dependencies": [
-            {
-              "groupId": "org.drools",
-              "artifactId": "drools-core",
-              "version": "6.0.1.Final"
-            }
-        ]
-        
+        ] 
       }
     }
   }
