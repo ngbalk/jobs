@@ -1,11 +1,7 @@
 import groovy.json.JsonSlurper
 
 Properties properties = new Properties()
-File propertiesFile = new File('config.properties')
-propertiesFile.withInputStream {
-    properties.load(it)
-}
-
+properties.load(streamFileFromWorkspace('config.properties'))
 
 def slurper=new JsonSlurper()
 def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
