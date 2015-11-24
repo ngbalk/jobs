@@ -7,8 +7,8 @@ def blackduckPassword=properties["blackduckPassword"]
 def blackduckAddress=properties["blackduckAddress"]
 
 def slurper=new JsonSlurper()
-def projects=slurper.parseText(readFileFromWorkspace('jobs.json'))
-projects.jobs.each {component, val ->
+def projects=slurper.parseText(readFileFromWorkspace('components.json'))
+projects.each {component, val ->
     job("${component}") {
 	    steps {
 	    	shell("wget -O pom.xml localhost:8080/jenkins/userContent/${component}-pom.xml")
