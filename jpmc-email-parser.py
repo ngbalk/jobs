@@ -8,13 +8,19 @@ import sys
 import csv
 import json
 
+################################################################
+######### Download All Attachments from Gmail Server ###########
+################################################################
+
+Properties properties = new Properties()
+properties.load(streamFileFromWorkspace('config.properties'))
 
 detach_dir = '.'
 if 'attachments' not in os.listdir(detach_dir):
     os.mkdir('attachments')
 
-userName = "redhat.jpmc.pilot"
-passwd = "redhat123"
+userName = properties["gmailUsername"]
+passwd = properties["gmailPassword"]
 
 try:
     imapSession = imaplib.IMAP4_SSL('imap.gmail.com')
@@ -59,6 +65,10 @@ try:
 except :
     print 'Not able to download all attachments.'
 
+################################################################################
+########### Parse Attachments and Create Golden components.json File ###########
+################################################################################
+
 components = {}
 for fn in os.listdir('attachments'):
     if fn.endswith(".csv"):
@@ -78,3 +88,5 @@ jsonData = json.dumps(components)
 
 outFile=open('./components.json', 'w')
 outFile.write(jsonData)
+
+
