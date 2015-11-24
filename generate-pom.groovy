@@ -2,7 +2,7 @@ import groovy.xml.MarkupBuilder
 import groovy.json.JsonSlurper
 
 def slurper=new JsonSlurper()
-def projects=slurper.parseText(new File("jobs.json").text)
+def projects=slurper.parseText(new File("components.json").text)
 
 projects.jobs.each {component, val ->
     def writer = new FileWriter(new File("${component}-pom.xml"))
