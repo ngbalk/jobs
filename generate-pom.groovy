@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 def slurper=new JsonSlurper()
 def projects=slurper.parseText(new File("components.json").text)
 
-projects.jobs.each {component, val ->
+projects.each {component, val ->
     def writer = new FileWriter(new File("${component}-pom.xml"))
     def xml = new MarkupBuilder(writer)
     xml.project{
