@@ -12,15 +12,13 @@ import json
 ######### Download All Attachments from Gmail Server ###########
 ################################################################
 
-Properties properties = new Properties()
-properties.load(streamFileFromWorkspace('config.properties'))
 
 detach_dir = '.'
 if 'attachments' not in os.listdir(detach_dir):
     os.mkdir('attachments')
 
-userName = properties["gmailUsername"]
-passwd = properties["gmailPassword"]
+userName = "redhat.jpmc.pilot"
+passwd = "redhat123"
 
 try:
     imapSession = imaplib.IMAP4_SSL('imap.gmail.com')
@@ -69,7 +67,15 @@ except :
 ########### Parse Attachments and Create Golden components.json File ###########
 ################################################################################
 
-components = {}
+
+if(os.path.isfile("components.json")):
+    print "components.json exists"
+    with open('components.json') as data_file:    
+        components = json.load(data_file)
+else:
+    print "components.json does not exit... starting from scratch"
+    components = {}
+
 for fn in os.listdir('attachments'):
     if fn.endswith(".csv"):
         #Create JSON Object
