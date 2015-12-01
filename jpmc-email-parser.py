@@ -1,6 +1,3 @@
-# Make sure you have IMAP enabled in your gmail settings.
-# Right now it won't download same file name twice even if their contents are different.
-
 import email
 import getpass, imaplib
 import os
@@ -53,11 +50,11 @@ try:
 
             if bool(fileName):
                 filePath = os.path.join(detach_dir, 'attachments', fileName)
-                if not os.path.isfile(filePath) :
-                    print fileName
-                    fp = open(filePath, 'wb')
-                    fp.write(part.get_payload(decode=True))
-                    fp.close()
+                # if not os.path.isfile(filePath) :
+                print fileName
+                fp = open(filePath, 'wb')
+                fp.write(part.get_payload(decode=True))
+                fp.close()
     imapSession.close()
     imapSession.logout()
 except :
@@ -94,5 +91,14 @@ jsonData = json.dumps(components)
 
 outFile=open('./components.json', 'w')
 outFile.write(jsonData)
+
+##########################################
+##### Clear Downloaded Attachments #######
+##########################################
+
+filelist = [f for f in os.listdir("attachments")]
+for f in filelist:
+    os.remove(f)
+os.rmdir("attachments")
 
 
