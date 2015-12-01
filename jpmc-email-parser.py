@@ -98,7 +98,7 @@ outFile.write(jsonData)
 
 filelist = [f for f in os.listdir("attachments")]
 for f in filelist:
-    os.remove(f)
+    os.remove("attachments/"+f)
 os.rmdir("attachments")
 
 
