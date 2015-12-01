@@ -15,12 +15,10 @@ projects.each {component, val ->
         version("1.0-SNAPSHOT")
         name(component)
         dependencies{
-            val.dependencies.each {dep-> 
-                dependency{
-                    groupId(dep.groupId)
-                    artifactId(dep.artifactId)
-                    version(dep.version)
-                }
+            dependency{
+                groupId(val.groupId)
+                artifactId(val.artifactId)
+                version(val.version)
             }
         }
         build{
