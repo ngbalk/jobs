@@ -25,7 +25,7 @@ try:
         raise
     
     imapSession.select('[Gmail]/All Mail')
-    typ, data = imapSession.search(None, 'ALL')
+    typ, data = imapSession.search(None, '(UNSEEN)')
     if typ != 'OK':
         print 'Error searching Inbox.'
         raise
@@ -50,7 +50,6 @@ try:
 
             if bool(fileName):
                 filePath = os.path.join(detach_dir, 'attachments', fileName)
-                # if not os.path.isfile(filePath) :
                 print fileName
                 fp = open(filePath, 'wb')
                 fp.write(part.get_payload(decode=True))
