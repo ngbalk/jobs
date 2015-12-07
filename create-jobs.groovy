@@ -45,7 +45,9 @@ projects.each {component, val ->
 				value('list')
 				applicationId("${component}")
 			}
-			pathConfig()
+			pathConfig{
+				scanTargets("**/target/*.war")
+			}
 			failOnSecurityAlerts false
 			failOnClmServerFailures false
 			stageId('build')
