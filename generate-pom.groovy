@@ -14,11 +14,15 @@ projects.each {component, val ->
         packaging("war")
         version("1.0-SNAPSHOT")
         name(component)
+        print val.dependencies
         dependencies{
-            dependency{
-                groupId(val.groupId)
-                artifactId(val.artifactId)
-                version(val.version)
+            val.dependencies.each {dep-> 
+                print dep
+                dependency{
+                    groupId(dep.groupId)
+                    artifactId(dep.artifactId)
+                    version(dep.version)
+                }
             }
         }
         build{
