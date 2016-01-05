@@ -4,20 +4,20 @@ from email.mime.text import MIMEText
 senderUsername="redhat.jpmc.pilot"
 senderPassword="redhat123"
 senderEmail="redhat.jpmc.pilot@gmail.com"
-recipientEmail="jgoldsmith@redhat.com"
+recipients=["jgoldsmith@redhat.com","nbalkiss@redhat.com"]
 
 authenticationUrl="http://10.3.10.47:8080/j_spring_security_check"
 reportsUrl = 'http://10.3.10.47:8080/api/vulnerability-update-reports'
 projectUrl = 'http://10.3.10.47:8080/api/projects/%s'
 credentials = {'j_username':'sysadmin', 'j_password':'blackduck'}
 
-def sendNotificationEmail(msgText):
+def sendNotificationEmail(recipient, msgText):
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(senderUsername, senderPassword)
 	msg = MIMEText(msgText)
 	msg['Subject'] = "Vulnerability update notification"
-        server.sendmail(senderEmail, recipientEmail, msg.as_string())
+        server.sendmail(senderEmail, recipient, msg.as_string())
         server.quit()
 
 #make start and stop dates
@@ -67,4 +67,7 @@ for link in reportsJson["_meta"]["links"]:
 		for reportEntry in reportData["reportContent"]:
 			if( reportEntry["fileContent"]["numberOfNewVulnerabilities"] != 0 or reportEntry["fileContent"]["numberOfUpdatedVulnerabilities"] != 0 ):
 				msg = makeEmailMessage(reportEntry["fileContent"])
-				sendNotificationEmail(msg)
+				for recipient in recipients:
+					sendNotificationEmail(recipient, msg)
+
+
