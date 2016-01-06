@@ -5,11 +5,15 @@ senderUsername="redhat.jpmc.pilot"
 senderPassword="redhat123"
 senderEmail="redhat.jpmc.pilot@gmail.com"
 recipients=["jgoldsmith@redhat.com","nbalkiss@redhat.com"]
+blackduckHost="10.3.10.47"
+blackduckUsername="sysadmin"
+blackduckPassword="blackduck"
 
-authenticationUrl="http://10.3.10.47:8080/j_spring_security_check"
-reportsUrl = 'http://10.3.10.47:8080/api/vulnerability-update-reports'
-projectUrl = 'http://10.3.10.47:8080/api/projects/%s'
-credentials = {'j_username':'sysadmin', 'j_password':'blackduck'}
+authenticationUrl='http://'+blackduckHost+':8080/j_spring_security_check'
+reportsUrl = 'http://'+blackduckHost+':8080/api/vulnerability-update-reports'
+projectUrl = 'http://'+blackduckHost+':8080/api/projects/%s'
+
+credentials = {'j_username':blackduckUsername, 'j_password':blackduckPassword}
 
 def sendNotificationEmail(recipient, msgText):
         server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -20,21 +24,11 @@ def sendNotificationEmail(recipient, msgText):
         server.sendmail(senderEmail, recipient, msg.as_string())
         server.quit()
 
-#make start and stop dates
-#endDate = str(datetime.date.today()) + 'T04:59:59.000Z'
-#startDate = str(datetime.date.today() - datetime.date.resolution) + 'T05:00:00.000Z' 
-
-#To enable testing day of
-
 endDate = str(datetime.date.today() + datetime.date.resolution) + 'T04:59:59.000Z'
 startDate = str(datetime.date.today()) + 'T05:00:00.000Z'
 
-
-
 payload = json.dumps({"endDate": endDate,"startDate": startDate})
-
 session = requests.Session()
-
 authResponse = session.post(authenticationUrl, data=credentials)
 
 createReportsResponse = session.post(reportsUrl, data=payload, headers={'Content-Type': 'application/json'})
@@ -56,8 +50,6 @@ def makeEmailMessage(fileContent):
 		msg += project["name"] + "\n"
 	return msg
 
-	
-
 for link in reportsJson["_meta"]["links"]:
 	if(link["rel"]=="content"):
 		while("errorMessage" in json.loads(session.get(link["href"]).text)):
@@ -69,5 +61,3 @@ for link in reportsJson["_meta"]["links"]:
 				msg = makeEmailMessage(reportEntry["fileContent"])
 				for recipient in recipients:
 					sendNotificationEmail(recipient, msg)
-
-
