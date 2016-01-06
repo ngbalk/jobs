@@ -4,6 +4,8 @@ import os
 import sys
 import csv
 import json
+from bson import json_util
+from pymongo import MongoClient
 
 ################################################################
 ######### Download All Attachments from Gmail Server ###########
@@ -50,7 +52,6 @@ try:
 
             if bool(fileName):
                 filePath = os.path.join(detach_dir, 'attachments', fileName)
-                print fileName
                 fp = open(filePath, 'wb')
                 fp.write(part.get_payload(decode=True))
                 fp.close()
@@ -63,46 +64,52 @@ except :
 ########### Parse Attachments and Create Golden components.json File ###########
 ################################################################################
 
-
-if(os.path.isfile("components.json")):
-    print "components.json exists"
-    with open('components.json') as data_file:    
-        components = json.load(data_file)
-else:
-    print "components.json does not exit... starting from scratch"
-    components = {}
+client = MongoClient('mongodb://system:redhat123@ds039175.mongolab.com:39175/security_pilot')
+db = client['security_pilot']
 
 for fn in os.listdir('attachments'):
     if fn.endswith(".csv"):
-        
-        components[fn.split(".csv")[0]] = {}
-        components[fn.split(".csv")[0]]["dependencies"] = []
+        componentName=fn.split(".csv")[0]
+        component={}
+        component[componentName] = {}
+        component[componentName]["dependencies"] = []
         
         f = open("attachments/"+fn, 'rt')
         try:
             reader = csv.reader(f)
             for row in reader:
-                component = {}
-                component["groupId"]=row[0]
-                component["artifactId"]=row[1]
-                component["version"]=row[2]
-
-                #Add new component to golden component list
-                components[fn.split(".csv")[0]]["dependencies"].append(component)
+                dependency = {}
+                dependency["groupId"]=row[0]
+                dependency["artifactId"]=row[1]
+                dependency["version"]=row[2]
+                component[componentName]["dependencies"].append(dependency)
         finally:
             f.close()
-jsonData = json.dumps(components)
+            db['components'].replace_one({componentName: {"$exists": True}}, component, True)
+            print componentName
 
+
+#########################################################################
+##### Generate temporary components.json local file from database #######
+#########################################################################
+
+if(os.path.isfile("components.json")):
+    os.remove("components.json")
 outFile=open('./components.json', 'w')
-outFile.write(jsonData)
+components={}
+for component in db["components"].find({},{'_id': 0}):
+    for item in component:
+        components[item]=component[item]
+outFile.write(json_util.dumps(components))
 
-##########################################
-##### Clear Downloaded Attachments #######
-##########################################
+
+
+
+###############################################################
+##### Clear Downloaded Attachments and components.json  #######
+###############################################################
 
 filelist = [f for f in os.listdir("attachments")]
 for f in filelist:
     os.remove("attachments/"+f)
 os.rmdir("attachments")
-
-
