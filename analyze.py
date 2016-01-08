@@ -115,7 +115,7 @@ def isUsable( str ):
 	start = str[:str.find('.')]
 	if (end.isdigit() and int(end) > 100 ) or (start.isdigit() and int(start)> 100):
 		return None
-        return modified.isdigit() or str.lower().find('redhat') != -1 or str.lower().endswith(('final','ga','release')) or re.search('[a-zA-Z]', str) is None
+        return modified.isdigit() or str.lower().find('redhat') != -1 or str.lower().endswith(('final','ga','release', 'sec')) or re.search('[a-zA-Z]', str) is None
 
 
 f = open('real', 'r')
