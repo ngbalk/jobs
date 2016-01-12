@@ -96,7 +96,6 @@ for fn in os.listdir('attachments'):
             for dependency in component[componentName]["dependencies"]:
                 results.append(findCleanVersion(dependency["groupId"], dependency["artifactId"], dependency["version"]))
             for result in results:
-                print result
                 if not result[result.keys()[0]]:
                     f.write(",".join([result.keys()[0], 'None', 'None']))
                 else:
