@@ -4,6 +4,7 @@ import os
 import sys
 import csv
 import json
+from analyze_vulnerability_by_version import findCleanVersion
 from bson import json_util
 from pymongo import MongoClient
 
@@ -60,13 +61,12 @@ try:
 except :
     print 'Not able to download all attachments.'
 
-################################################################################
-########### Parse Attachments and Create Golden components.json File ###########
-################################################################################
+###############################################################
+########### Parse Attachments and store in database ###########
+###############################################################
 
 client = MongoClient('mongodb://system:redhat123@ds039175.mongolab.com:39175/security_pilot')
 db = client['security_pilot']
-
 for fn in os.listdir('attachments'):
     if fn.endswith(".csv"):
         componentName=fn.split(".csv")[0]
@@ -86,8 +86,23 @@ for fn in os.listdir('attachments'):
         finally:
             f.close()
             db['components'].replace_one({componentName: {"$exists": True}}, component, True)
-            print componentName
 
+            #############################################################################
+            ##### Analyze vulnerabilities in each submitted component, by version #######
+            #############################################################################
+            f = open('vulnerabilityByVersion.csv','w')
+            f.write("group:artifact:version,nearestCleanVersion,latestCleanVersion\n")
+            results = []
+            for dependency in component[componentName]["dependencies"]:
+                results.append(findCleanVersion(dependency["groupId"], dependency["artifactId"], dependency["version"]))
+            for result in results:
+                print result
+                if not result[result.keys()[0]]:
+                    f.write(",".join([result.keys()[0], 'None', 'None']))
+                else:
+                    f.write(",".join([result.keys()[0], result[result.keys()[0]]['nearestCleanVersion']['group']+':'+result[result.keys()[0]]['nearestCleanVersion']['artifact']+':'+result[result.keys()[0]]['nearestCleanVersion']['version'],result[result.keys()[0]]['latestCleanVersion']['group']+':'+result[result.keys()[0]]['latestCleanVersion']['artifact']+':'+result[result.keys()[0]]['latestCleanVersion']['version']]))
+                f.write("\n")
+            f.close()
 
 #########################################################################
 ##### Generate temporary components.json local file from database #######
@@ -101,9 +116,6 @@ for component in db["components"].find({},{'_id': 0}):
     for item in component:
         components[item]=component[item]
 outFile.write(json_util.dumps(components))
-
-
-
 
 ###############################################################
 ##### Clear Downloaded Attachments and components.json  #######
