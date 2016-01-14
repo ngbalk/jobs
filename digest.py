@@ -1,5 +1,5 @@
 import email, getpass, imaplib, os, csv, sys, json, time
-from analyze_vulnerability_by_version import findCleanVersion
+from analyze_vulnerability_by_version import findCleanVersion, findNearestRedHatVersion
 from bson import json_util
 from pymongo import MongoClient, ReturnDocument
 
@@ -124,11 +124,15 @@ def generateVulnVersionDataByApplication(applicationIds):
         f.write("group:artifact:version,nearestCleanVersion,latestCleanVersion\n")        
         for dependency in component["dependencies"]:
             result = findCleanVersion(dependency["groupId"], dependency["artifactId"], dependency["version"])
+            redHatResult = findNearestAndLatestRedHatVersion(dependency["groupId"], dependency["artifactId"], dependency["version"])
             if not result:
                 continue
             if not result['nearestCleanVersion']:
                 f.write(",".join([result['gav'], 'None', 'None']))
+            if not redHatResult['nearestRedHatVersion']:
+                f.write(",".join([result['gav'], 'None', 'None']))
             else:
                 f.write(",".join([result['gav'], result['nearestCleanVersion']['group']+':'+result['nearestCleanVersion']['artifact']+':'+result['nearestCleanVersion']['version'],result['latestCleanVersion']['group']+':'+result['latestCleanVersion']['artifact']+':'+result['latestCleanVersion']['version']]))
+            f.write(",".join([redHatResult['gav'], redHatResult['nearestRedHatVersion']['group']+':'+redHatResult['nearestRedHatVersion']['artifact']+':'+redHatResult['nearestRedHatVersion']['version'],redHatResult['latestRedHatVersion']['group']+':'+redHatResult['latestRedHatVersion']['artifact']+':'+redHatResult['latestRedHatVersion']['version']]))
             f.write("\n")        
         f.close()
