@@ -1,3 +1,5 @@
 /attachments/i*
 *-pom.xml
 *.pyc
+components.json
+*.csv
