@@ -1,5 +1,5 @@
 import email, getpass, imaplib, os, csv, sys, json, time
-from analyze_vulnerability_by_version import findCleanVersion, findNearestRedHatVersion
+from analyze_vulnerability_by_version import *
 from bson import json_util
 from pymongo import MongoClient, ReturnDocument
 
@@ -121,18 +121,15 @@ def generateVulnVersionDataByApplication(applicationIds):
     for oid in applicationIds:
         component = db['components'].find_one({'_id':oid})
         f = open('component-data-'+component['name']+'.csv','w')
-        f.write("group:artifact:version,nearestCleanVersion,latestCleanVersion\n")        
+        f.write("group:artifact:version,nearestCleanVersion,latestCleanVersion,nearestRedHatVersion,latestRedHatVersion\n")        
         for dependency in component["dependencies"]:
-            result = findCleanVersion(dependency["groupId"], dependency["artifactId"], dependency["version"])
-            redHatResult = findNearestAndLatestRedHatVersion(dependency["groupId"], dependency["artifactId"], dependency["version"])
-            if not result:
+            group=dependency["groupId"]
+            artifact=dependency["artifactId"]
+            version=dependency["version"]
+            if not validateGAV(group,artifact,version):
                 continue
-            if not result['nearestCleanVersion']:
-                f.write(",".join([result['gav'], 'None', 'None']))
-            if not redHatResult['nearestRedHatVersion']:
-                f.write(",".join([result['gav'], 'None', 'None']))
-            else:
-                f.write(",".join([result['gav'], result['nearestCleanVersion']['group']+':'+result['nearestCleanVersion']['artifact']+':'+result['nearestCleanVersion']['version'],result['latestCleanVersion']['group']+':'+result['latestCleanVersion']['artifact']+':'+result['latestCleanVersion']['version']]))
-            f.write(",".join([redHatResult['gav'], redHatResult['nearestRedHatVersion']['group']+':'+redHatResult['nearestRedHatVersion']['artifact']+':'+redHatResult['nearestRedHatVersion']['version'],redHatResult['latestRedHatVersion']['group']+':'+redHatResult['latestRedHatVersion']['artifact']+':'+redHatResult['latestRedHatVersion']['version']]))
+            result = findCleanVersion(group,artifact,version)
+            redHatResult = findNearestAndLatestRedHatVersion(group,artifact,version)
+                f.write(",".join([result['gav'], str(result['nearestCleanVersion']['group'])+':'+str(result['nearestCleanVersion']['artifact'])+':'+str(result['nearestCleanVersion']['version']),str(result['latestCleanVersion']['group'])+':'+str(result['latestCleanVersion']['artifact'])+':'+str(result['latestCleanVersion']['version']),str(redHatResult['nearestRedHatVersion']['group'])+':'+str(redHatResult['nearestRedHatVersion']['artifact'])+':'+str(redHatResult['nearestRedHatVersion']['version']),str(redHatResult['latestRedHatVersion']['group'])+':'+str(redHatResult['latestRedHatVersion']['artifact'])+':'+str(redHatResult['latestRedHatVersion']['version'])]))
             f.write("\n")        
         f.close()
