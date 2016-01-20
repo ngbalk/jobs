@@ -3,3 +3,4 @@
 *.pyc
 components.json
 *.csv
+test.py
