@@ -16,7 +16,7 @@ from email.parser import HeaderParser
 clientAddress="nbalkiss@redhat.com" # Default value
 client = MongoClient('mongodb://system:redhat123@ds039175.mongolab.com:39175/security_pilot')
 db = client['security_pilot']
-severityThreshold=7
+severityThreshold=1
 
 ################################################################
 ######### Download All Attachments from Gmail Server ###########
@@ -148,7 +148,7 @@ def generateVulnVersionDataByApplication(applicationIds):
                 f.write("\n")
             except ScanException, e:
                 print str(e)
-                f.write(gavString+', REQUIRES MANUAL ATTENTION\n')
+                f.write(gavString+', REQUIRES MANUAL ATTENTION -- Message: ' + str(e) + '\n')
         f.close()
     return reportIds
 
