@@ -20,6 +20,12 @@ projects.each {component ->
                     groupId(dep.groupId)
                     artifactId(dep.artifactId)
                     version(dep.version)
+                    exclusions{
+                        exclusion{
+                            groupId('*')
+                            artifactId('*')
+                        }
+                    }
                 }
             }
         }
@@ -37,4 +43,3 @@ projects.each {component ->
         }
     }
 }
-
