@@ -4,6 +4,7 @@ import xml.dom.minidom
 from gav import GAV
 import urllib2
 
+
 def verifyGAVInMavenCentral(gav):
 	url = 'http://central.maven.org/maven2/%s/%s/%s/%s-%s.jar' % (gav.group.replace('.','/'), gav.artifact, gav.version, gav.artifact, gav.version)
 	try:
@@ -11,6 +12,7 @@ def verifyGAVInMavenCentral(gav):
 		return True
 	except urllib2.HTTPError, e:
 		return False
+
 
 
 components=json.loads(open('components.json').read())
@@ -45,6 +47,8 @@ for component in components:
 	dependencies=etree.Element('dependencies')
 	project.append(dependencies)
 
+	fi = open('invalid-components-'+component['name']+'.csv','w')
+
 	for dep in component['dependencies']:
 		group=dep['groupId']
 		artifact=dep['artifactId']
@@ -60,7 +64,8 @@ for component in components:
 			etree.SubElement(exclusion, 'artifactId').text='*'
 		else:
 			print "Excluding %s, %s, %s from generated POM" % (group, artifact, version)
-	
+			fi.write('%s,%s,%s\n' % (group, artifact, version))
+	fi.close()	
 	build=etree.SubElement(project,'build')
 	plugins=etree.SubElement(build, 'plugins')
 	plugin=etree.SubElement(plugins, 'plugin')
